@@ -1,0 +1,1190 @@
+{
+  "type": "FeatureCollection",
+  "name": "smap_pixels_plus_proches_AM_PM",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:4326"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-01",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-01",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-02",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-02",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-03",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-03",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-04",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-04",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-05",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-05",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-06",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-06",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-07",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-07",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-08",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-08",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-09",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-09",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-10",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-10",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-11",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-11",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-12",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-12",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-13",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-13",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-14",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-14",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-15",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-15",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-16",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-16",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-17",
+        "passage": "AM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-17",
+        "passage": "PM",
+        "soil_moisture": null,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-18",
+        "passage": "AM",
+        "soil_moisture": 0.3984066843986511,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-18",
+        "passage": "PM",
+        "soil_moisture": 0.4425904452800751,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-19",
+        "passage": "AM",
+        "soil_moisture": 0.4045504629611969,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-19",
+        "passage": "PM",
+        "soil_moisture": 0.44401201605796814,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-20",
+        "passage": "AM",
+        "soil_moisture": 0.48045623302459717,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-20",
+        "passage": "PM",
+        "soil_moisture": 0.45051586627960205,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-21",
+        "passage": "AM",
+        "soil_moisture": 0.45105430483818054,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-21",
+        "passage": "PM",
+        "soil_moisture": 0.5234986543655396,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-22",
+        "passage": "AM",
+        "soil_moisture": 0.4682016372680664,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-22",
+        "passage": "PM",
+        "soil_moisture": 0.44338148832321167,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-23",
+        "passage": "AM",
+        "soil_moisture": 0.37089017033576965,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-23",
+        "passage": "PM",
+        "soil_moisture": 0.3852534890174866,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-24",
+        "passage": "PM",
+        "soil_moisture": 0.3512892723083496,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-24",
+        "passage": "AM",
+        "soil_moisture": 0.388008713722229,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-25",
+        "passage": "AM",
+        "soil_moisture": 0.33344730734825134,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-25",
+        "passage": "PM",
+        "soil_moisture": 0.34973496198654175,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-26",
+        "passage": "AM",
+        "soil_moisture": 0.30094876885414124,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-26",
+        "passage": "PM",
+        "soil_moisture": 0.35067155957221985,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-27",
+        "passage": "AM",
+        "soil_moisture": 0.3338151276111603,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-27",
+        "passage": "PM",
+        "soil_moisture": 0.38095131516456604,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-28",
+        "passage": "AM",
+        "soil_moisture": 0.2983067035675049,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-28",
+        "passage": "PM",
+        "soil_moisture": 0.29541897773742676,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-29",
+        "passage": "AM",
+        "soil_moisture": 0.3530638813972473,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-29",
+        "passage": "PM",
+        "soil_moisture": 0.3032517731189728,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-30",
+        "passage": "AM",
+        "soil_moisture": 0.2864546477794647,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-30",
+        "passage": "PM",
+        "soil_moisture": 0.34300661087036133,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-31",
+        "passage": "AM",
+        "soil_moisture": 0.2876085937023163,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.7479248046875,
+          67.1317138671875
+        ]
+      },
+      "properties": {
+        "date": "2021-05-31",
+        "passage": "PM",
+        "soil_moisture": 0.332861065864563,
+        "distance_deg": 0.028298525139689445,
+        "distance_km": 3.150191818550229,
+        "lat_station": 67.15288,
+        "lon_station": 26.72914
+      }
+    }
+  ]
+}
