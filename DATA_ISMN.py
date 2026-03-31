@@ -10,12 +10,15 @@ from folium.plugins import MarkerCluster
 import base64
 import io
 
+
 data_path = "/home/alex/Documents/Projet_Stage/PROJET/DATA/Data_separate_files_header_20210101_20211231_13268_65EF_20260330.zip"
 data_path2 = "/home/alex/Documents/Projet_Stage/PROJET/DATA/Data_separate_files_header_20210101_20211231_13268_AWVn_20260330.zip"
 out_dir = "/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu"
 PERIODE = ("2021-05-01", "2021-05-31")
 
 os.makedirs(out_dir, exist_ok=True)
+
+
 
 
 
@@ -35,7 +38,14 @@ def coord_station_ismn(data):
 #print(coord_station_ismn(data_path2))
 
 
+def extract_bounding_box(df):
+    lat_min = df["Lat"].min()
+    lat_max = df["Lat"].max()
+    lon_min = df["Lon"].min()
+    lon_max = df["Lon"].max()
+    return lat_min, lat_max, lon_min, lon_max
 
+#print(extract_bounding_box(pd.read_excel("/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu/stations_mai2021.xlsx")))
 
 
 
@@ -54,7 +64,7 @@ def parse_sensor_name(name):
 
     return instrument, profondeur_cm
 
-def extract_station_data(data_path, periode, stations=None):
+def extract_station_data(data_path, periode, stations=None , sensor=None):
 
     ismn_data = ISMN_Interface(data_path)
     rows = []
@@ -69,15 +79,17 @@ def extract_station_data(data_path, periode, stations=None):
             lat = station.lat() if callable(station.lat) else station.lat
             lon = station.lon() if callable(station.lon) else station.lon
 
-            for sensor in station.iter_sensors():
-                df = sensor.read_data()
+            for sensor_obj in station.iter_sensors():
+                instrument, profondeur_cm = parse_sensor_name(sensor_obj.name)
+                if sensor is not None and instrument != sensor:
+                    continue
+
+                df = sensor_obj.read_data()
                 df.index = pd.to_datetime(df.index)
                 df = df.loc[periode[0]:periode[1]]
 
                 if not df.empty:
                     col = df.columns[0]
-
-                    instrument, profondeur_cm = parse_sensor_name(sensor.name)
 
                     for date, row in df.iterrows():
 
@@ -87,18 +99,20 @@ def extract_station_data(data_path, periode, stations=None):
                         
     return pd.DataFrame(rows)
 
+sensor = "CS655-A"
+stations = ["SOD140"]
+tab = extract_station_data(data_path2, PERIODE, stations=stations, sensor=sensor)    
+tab.to_excel("/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu/stations_SOD140_mai2021.xlsx", index=False)
 
 
-#tab = extract_station_data(data_path2, PERIODE, stations= None)    
-#tab.to_excel("/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu/stations_mai2021.xlsx", index=False)
 
-
-
-def plot_station_data(df_path, stations=None):
+def plot_station_data(df_path, stations=None, sensor=None):
 
     df = pd.read_excel(df_path)
     if stations is not None:
         df = df[df["station"].isin(stations)]
+    if sensor is not None:
+        df = df[df["Capteur"].isin(sensor if isinstance(sensor, list) else [sensor])]
 
     for station_name, group in df.groupby("station"):
         fig, ax = plt.subplots(figsize=(12, 4))
@@ -117,8 +131,8 @@ def plot_station_data(df_path, stations=None):
         plt.savefig(f"{out_dir}/{station_name}_mai2021.png")
         plt.close()
 
-
-#plot_station_data("/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu/stations_mai2021.xlsx", stations=None)
+sensor = "CS655-A"
+plot_station_data("/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu/stations_SOD140_mai2021.xlsx", stations=None, sensor=sensor)
 
 
 
@@ -149,12 +163,14 @@ def plot_station_by_profondeur(df_path, stations=None, profondeur=None):
         plt.close()
 
 
-#plot_station_by_profondeur("/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu/stations_mai2021.xlsx", stations=None, profondeur=[10.0])
+#plot_station_by_profondeur("/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu/stations_SOD140_mai2021.xlsx", stations=None, profondeur=[10.0])
 
 
-def plot_station_on_osm(df_path, stations=None):
+
+def plot_station(df_path, stations=None):
 
     df = pd.read_excel(df_path)
+
     if stations is not None:
         df = df[df["station"].isin(stations)]
 
@@ -165,21 +181,17 @@ def plot_station_on_osm(df_path, stations=None):
         lat = group["Lat"].iloc[0]
         lon = group["Lon"].iloc[0]
 
-        # --- Stats descriptives par profondeur ---
-        stats = (
-            group.groupby("Profondeur_cm")["Soil_moisture"]
-            .agg(Moyenne="mean", Ecart_type="std", Min="min", Max="max")
-            .round(4)
-            .reset_index()
-        )
-        stats_html = stats.to_html(index=False, border=1,
-                                   classes="stats", justify="center")
+        stats = (group.groupby("Profondeur_cm")["Soil_moisture"].agg(Moyenne="mean", Ecart_type="std", Min="min", Max="max")
+            .round(4).reset_index())
+        
+        stats_html = stats.to_html(index=False, border=1,classes="stats", justify="center")
 
-        # --- Graphique embarqué en base64 ---
+
         fig, ax = plt.subplots(figsize=(6, 3))
+
         for depth, dgroup in group.groupby("Profondeur_cm"):
-            ax.plot(pd.to_datetime(dgroup["Date"]), dgroup["Soil_moisture"],
-                    linewidth=0.8, label=f"{depth} cm")
+            ax.plot(pd.to_datetime(dgroup["Date"]), dgroup["Soil_moisture"],linewidth=0.8, label=f"{depth} cm")
+            
         ax.set_title(station_name, fontsize=9)
         ax.set_xlabel("Date", fontsize=7)
         ax.set_ylabel("Humidité (m³/m³)", fontsize=7)
@@ -187,15 +199,17 @@ def plot_station_on_osm(df_path, stations=None):
         ax.tick_params(axis='y', labelsize=6)
         ax.legend(title="Prof.", fontsize=6, title_fontsize=6)
         ax.grid(True, linestyle='--', alpha=0.4)
+
         plt.tight_layout()
         buf = io.BytesIO()
         fig.savefig(buf, format="png", dpi=100)
         plt.close(fig)
         buf.seek(0)
+
         img_b64 = base64.b64encode(buf.read()).decode("utf-8")
         img_html = f'<img src="data:image/png;base64,{img_b64}" width="420"/>'
 
-        # --- Popup HTML ---
+
         popup_html = f"""
         <div style="font-family:Arial; font-size:12px; width:440px">
           <h4 style="margin:4px 0">{station_name}</h4>
@@ -206,15 +220,10 @@ def plot_station_on_osm(df_path, stations=None):
                  .stats th {{background:#f0f0f0}}</style>
           {stats_html}
           <br>{img_html}
-        </div>
-        """
-        folium.Marker(
-            location=[lat, lon],
-            popup=folium.Popup(popup_html, max_width=460),
-            tooltip=station_name,
-        ).add_to(marker_cluster)
+        </div>"""
+        folium.Marker(location=[lat, lon],popup=folium.Popup(popup_html, max_width=460),tooltip=station_name,).add_to(marker_cluster)
 
-    m.save(f"{out_dir}/stations_map_mai2021.html")
-    print(f"Carte sauvegardée : {out_dir}/stations_map_mai2021.html")
+    m.save(f"{out_dir}/stations_SOD140_map_mai2021.html")
+    
 
-plot_station_on_osm("/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu/stations_mai2021.xlsx", stations=None)
+#plot_station("/home/alex/Documents/Projet_Stage/PROJET/DATA/Stations_insitu/stations_SOD140_mai2021.xlsx", stations=None)
