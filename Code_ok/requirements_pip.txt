@@ -1,0 +1,353 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# requirements_pip.txt — Installation via venv + pip uniquement
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# USAGE :
+#   python3.11 -m venv teledetection_pip
+#   source teledetection_pip/bin/activate
+#   pip install --upgrade pip setuptools wheel
+#   pip install -r requirements_pip.txt
+#
+# PRÉREQUIS SYSTÈME (Linux) — à installer AVANT pip install :
+#   sudo apt install -y \
+#     python3.11 python3.11-venv python3.11-dev \
+#     libgdal-dev gdal-bin \
+#     libeccodes-dev \
+#     libjpeg-dev libpng-dev libtiff-dev \
+#     libproj-dev \
+#     libgeos-dev \
+#     libspatialindex-dev \
+#     libhdf4-dev libhdf5-dev \
+#     default-jdk \
+#     libnetcdf-dev \
+#     libopenblas-dev \
+#     g++ gfortran cmake
+#
+# ⚠ GDAL : installer la version exacte qui correspond à gdal-config --version
+#   pip install GDAL==$(gdal-config --version)
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────
+# Science fondamentale
+# numpy<2.0 obligatoire (MintPy, albumentations, spectral, pyrocko)
+# ─────────────────────────────────────────────────
+numpy>=1.24,<2.0
+scipy>=1.11
+pandas>=2.0,<3.0
+statsmodels>=0.14
+sympy>=1.12
+mpmath>=1.3
+cython>=3.0
+
+# ─────────────────────────────────────────────────
+# IO / Formats de données
+# ─────────────────────────────────────────────────
+xarray>=2023.6
+dask[complete]>=2023.9
+h5py>=3.9
+h5netcdf>=1.2
+netcdf4>=1.6
+zarr>=2.16,<3.0
+# cfgrib nécessite eccodes système (libeccodes-dev)
+cfgrib>=0.9.10
+# pyhdf nécessite libhdf4-dev
+pyhdf>=0.10
+pyarrow>=14.0
+fastparquet>=2023.8
+openpyxl>=3.1
+xlrd>=2.0
+tables>=3.9
+cftime>=1.6
+# pygrib nécessite eccodes système
+pygrib>=2.1
+eccodes>=1.6.1
+
+# ─────────────────────────────────────────────────
+# Géospatial
+# GDAL : pip install GDAL==$(gdal-config --version)
+# rasterio dépend de GDAL système
+# ─────────────────────────────────────────────────
+# GDAL           ← à installer manuellement (voir note en haut)
+rasterio>=1.3,<1.4
+fiona>=1.9,<2.0
+geopandas>=0.14
+shapely>=2.0
+pyproj>=3.6
+cartopy>=0.22
+rtree>=1.2
+geopy>=2.4
+tiledb>=0.24
+cf-units>=3.2
+rioxarray>=0.15
+
+# ─────────────────────────────────────────────────
+# Données climatiques
+# ─────────────────────────────────────────────────
+cdsapi>=0.7
+metpy>=1.6
+pint>=0.23
+pint-xarray>=0.3
+cf_xarray>=0.9
+xclim>=0.47
+# xesmf nécessite ESMF compilé — difficile via pip seul
+# xesmf>=0.8
+intake>=0.6,<2.0
+intake-xarray>=0.7
+intake-esm>=2023.11
+
+# ─────────────────────────────────────────────────
+# Données climatiques & in-situ
+# ─────────────────────────────────────────────────
+ismn==1.3.1
+pytesmo==0.17.0
+pynetcf==0.4.1
+ascat==2.3.0
+smap-io==1.1.0
+herbie-data==2024.3.0
+cfpython==1.11.2
+nc-time-axis==1.4.1
+climate-indices==1.0.13
+xarray-datatree==0.0.14
+verde==1.8.0
+ecmwf-api-client==1.6.3
+hdstats==0.2.7
+h5pyd==0.15.0
+climpred==2.3.0
+pydap==3.4.0
+earthaccess==0.8.2
+planetary-computer==1.0.0
+
+# ─────────────────────────────────────────────────
+# Visualisation
+# ─────────────────────────────────────────────────
+matplotlib>=3.8
+seaborn>=0.13
+plotly>=5.17
+bokeh>=3.3
+holoviews>=1.18
+hvplot>=0.9
+panel>=1.3
+datashader>=0.16
+folium>=0.15
+ipyleaflet>=0.18
+geoviews>=1.11
+contextily>=1.4
+mapclassify>=2.6
+pyvista>=0.43
+imageio>=2.33
+imageio-ffmpeg>=0.4
+pillow>=10.1
+cmocean>=3.0
+colorcet>=3.0
+mpl-scatter-density==0.8
+proplot==0.9.7
+
+# ─────────────────────────────────────────────────
+# Jupyter
+# ─────────────────────────────────────────────────
+jupyter>=1.0
+jupyterlab>=4.0
+jupyterlab-git>=0.50
+nbconvert>=7.10
+ipykernel>=6.27
+ipywidgets>=8.1
+ipympl>=0.9
+nbformat>=5.9
+
+# ─────────────────────────────────────────────────
+# Machine Learning
+# ─────────────────────────────────────────────────
+scikit-learn>=1.3
+lightgbm>=4.1
+xgboost>=2.0
+catboost>=1.2
+imbalanced-learn>=0.11
+shap>=0.44
+mlflow>=2.9
+optuna>=3.4
+hyperopt>=0.2.7
+
+# ─────────────────────────────────────────────────
+# Deep Learning — PyTorch 2.1 CPU (sans CUDA)
+# Pour GPU : pip install torch==2.1.2+cu121 torchvision==0.16.2+cu121 \
+#             --index-url https://download.pytorch.org/whl/cu121
+# ─────────────────────────────────────────────────
+torch==2.1.2
+torchvision==0.16.2
+torchaudio==2.1.2
+tensorflow==2.15.0
+keras==2.15.0
+tensorflow-datasets==4.9.6
+torch-summary==1.4.5
+torchmetrics==1.2.1
+pytorch-lightning==2.1.4
+onnx==1.15.0
+onnxruntime==1.16.3
+
+# ─────────────────────────────────────────────────
+# Traitement d'images
+# ─────────────────────────────────────────────────
+opencv-python>=4.8
+scikit-image>=0.22
+# itk et simpleitk : binaires wheels disponibles sur PyPI
+itk>=5.3
+SimpleITK>=2.3
+
+# ─────────────────────────────────────────────────
+# Optimisation / parallélisme
+# ─────────────────────────────────────────────────
+numba>=0.58
+numexpr>=2.9
+joblib>=1.3
+multiprocess>=0.70
+ray[default]==2.8.1
+
+# ─────────────────────────────────────────────────
+# Utilitaires
+# ─────────────────────────────────────────────────
+tqdm>=4.66
+rich>=13.6
+click>=8.1
+typer>=0.9
+loguru>=0.7
+pyyaml>=6.0
+toml>=0.10
+jsonschema>=4.20
+requests>=2.31
+httpx>=0.25
+aiohttp>=3.9
+urllib3>=1.26,<3.0
+certifi>=2023.11
+boto3>=1.33
+fsspec>=2023.12
+s3fs>=2023.12
+gcsfs>=2023.12
+pooch>=1.8
+lxml>=4.9
+beautifulsoup4>=4.12
+paramiko>=3.4
+gitpython>=3.1
+
+# ─────────────────────────────────────────────────
+# InSAR / SAR
+# ─────────────────────────────────────────────────
+mintpy==1.5.3
+pyaps3==0.3.1
+pysolid==0.3.3
+pyrate-insar==0.7.0
+git+https://github.com/ManonDls/KFTS-InSAR.git
+git+https://github.com/jolivetr/mpits.git
+git+https://github.com/dbekaert/TRAIN.git
+git+https://github.com/aria-tools/ARIA-tools.git
+git+https://github.com/pyrocko/kite.git
+git+https://github.com/feigl/gipht.git
+git+https://github.com/insarlab/FRInGE.git
+
+# ─────────────────────────────────────────────────
+# Humidité des sols SAR
+# ─────────────────────────────────────────────────
+git+https://github.com/kleok/INSAR4SM.git
+git+https://github.com/TUW-GEO/s1_rtc_sar_sm.git
+git+https://github.com/ECMWFCode4Earth/ml_drought.git
+git+https://github.com/ritviksahajpal/rangeland-carbon.git
+
+# ─────────────────────────────────────────────────
+# Découverte & téléchargement données satellites
+# ─────────────────────────────────────────────────
+sentinelsat==1.3.1
+asf-search==6.7.4
+hyp3-sdk==4.1.0
+git+https://github.com/SDFIdk/CDSETool.git
+git+https://github.com/armkhudinyan/copernicus_api.git
+eodag==2.11.0
+pystac==1.9.0
+pystac-client==0.7.6
+stackstac==0.5.0
+odc-stac==0.3.9
+eodms-api-client==2.2.0
+git+https://github.com/bakerunavco/Archive-Tools.git
+
+# ─────────────────────────────────────────────────
+# Imagerie & traitement SAR
+# ─────────────────────────────────────────────────
+sarsen==0.10.0
+xarray-sentinel==0.9.2
+pyrosar==0.24.0
+sarpy==1.3.40
+eoreader==0.21.2
+rio-cogeo==3.5.0
+git+https://github.com/odhondt/eo_tools.git
+git+https://github.com/mobigroup/gmtsar.git
+git+https://github.com/birgander2/PyRAT.git
+git+https://github.com/SAR-ARD/S1_NRB.git
+git+https://github.com/CNES/S1Tiling.git
+git+https://github.com/mdelgadoblasco/snap2stamps.git
+git+https://github.com/SnowEx/uavsar_pytools.git
+
+# ─────────────────────────────────────────────────
+# Imagerie optique & hyperspectrale
+# ─────────────────────────────────────────────────
+spectral==0.23.1
+spectral-cube==0.6.3
+pysptools==0.15.0
+
+# ─────────────────────────────────────────────────
+# Détection de changements / destruction bâti
+# ─────────────────────────────────────────────────
+torchgeo==0.5.2
+segmentation-models-pytorch==0.3.3
+albumentations==1.3.1
+timm==0.9.12
+einops==0.7.0
+git+https://github.com/wgcban/ChangeFormer.git
+git+https://github.com/likyoo/open-cd.git
+git+https://github.com/justchenhao/BIT_CD.git
+git+https://github.com/DIUx-xView/xView2_baseline.git
+
+# ─────────────────────────────────────────────────
+# Géostatistiques / interpolation
+# ─────────────────────────────────────────────────
+pyrocko==2023.10.11
+gstools==1.5.1
+pykrige==1.7.1
+pyinterp==2023.10.0
+
+# ─────────────────────────────────────────────────
+# ESA SNAPPY
+# jpy nécessite le JDK système (default-jdk)
+# ─────────────────────────────────────────────────
+jpy>=0.15
+esa-snappy==1.1.2
+jpype1==1.5.0
+
+# ─────────────────────────────────────────────────
+# ArcGIS API Python (≠ arcpy propriétaire)
+# ─────────────────────────────────────────────────
+arcgis==2.3.0
+ujson>=5.8
+cachetools>=5.3
+geomet==0.3.1
+keyring>=24.3
+pyshp==2.3.1
+arcgis2geojson==3.0.2
+featuretools==1.28.0
+
+# ─────────────────────────────────────────────────
+# Optimisation / profilage
+# ─────────────────────────────────────────────────
+memory-profiler==0.61.0
+line-profiler==4.1.1
+py-spy==0.3.14
+
+# ─────────────────────────────────────────────────
+# Qualité code
+# ─────────────────────────────────────────────────
+pytest>=7.4
+pytest-cov>=4.1
+black>=23.11
+flake8>=6.1
+isort>=5.13
+ruamel.yaml>=0.18
+natsort>=8.4
+more-itertools>=10.1

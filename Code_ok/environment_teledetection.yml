@@ -1,0 +1,547 @@
+name: teledetection
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# GUIDE D'INSTALLATION
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  MÉTHODE 1 — CONDA  (RECOMMANDÉE — tu as Miniconda installé)               ║
+# ║  Gère GDAL, eccodes, ISCE2, openjdk automatiquement                        ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+#
+# ── Prérequis ────────────────────────────────────────────────────────────────
+#   Miniconda ou Anaconda installé :
+#     https://docs.conda.io/en/latest/miniconda.html
+#
+# ── 1. Créer l'environnement d'un seul coup ───────────────────────────────────
+#
+#   conda env create -f environment_teledetection.yml
+#
+#   → Installe automatiquement TOUS les paquets conda + pip (15-45 min)
+#
+# ── 2. Activer ────────────────────────────────────────────────────────────────
+#
+#   conda activate teledetection
+#
+# ── 3. Vérifier ───────────────────────────────────────────────────────────────
+#
+#   python -c "import numpy, xarray, rasterio, mintpy, torch; print('OK')"
+#
+# ── 4. Désactiver ─────────────────────────────────────────────────────────────
+#
+#   conda deactivate
+#
+# ── 5. Mettre à jour si ce fichier change ────────────────────────────────────
+#
+#   conda env update -f environment_teledetection.yml --prune
+#
+# ── 6. Supprimer l'environnement ─────────────────────────────────────────────
+#
+#   conda env remove -n teledetection
+#
+# ── 7. Enregistrer comme kernel Jupyter ──────────────────────────────────────
+#
+#   conda activate teledetection
+#   python -m ipykernel install --user --name teledetection \
+#                               --display-name "Python (teledetection)"
+#
+# ── 8. Exporter l'environnement actuel (après ajouts manuels) ────────────────
+#
+#   conda env export > environment_teledetection_export.yml
+#
+# ── Sans GPU NVIDIA ───────────────────────────────────────────────────────────
+#   Supprimer les 2 lignes marquées [GPU] avant de lancer la création :
+#     - pytorch::pytorch-cuda=12.1
+#     - cudatoolkit=12.1
+#
+#
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  MÉTHODE 2 — VENV + PIP  (sans conda, Python système requis)               ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+#
+# ── Prérequis ────────────────────────────────────────────────────────────────
+#   Python 3.11 + libs système :
+#     Linux   : sudo apt install python3.11 python3.11-venv python3.11-dev \
+#                 libgdal-dev libeccodes-dev libjpeg-dev libproj-dev \
+#                 libgeos-dev libspatialindex-dev default-jdk
+#     Windows : https://www.python.org/downloads/release/python-3119/
+#
+# ── 1. Créer l'environnement virtuel ──────────────────────────────────────────
+#
+#   python3.11 -m venv teledetection
+#
+# ── 2. Activer ────────────────────────────────────────────────────────────────
+#
+#   Linux / macOS : source teledetection/bin/activate
+#   Windows PS    : teledetection\Scripts\Activate.ps1
+#   Windows cmd   : teledetection\Scripts\activate.bat
+#
+# ── 3. Mettre à jour pip ─────────────────────────────────────────────────────
+#
+#   pip install --upgrade pip setuptools wheel
+#
+# ── 4. Extraire les paquets pip du .yml et installer ─────────────────────────
+#
+#   python3 -c "
+#   import yaml, sys
+#   with open('environment_teledetection.yml') as f:
+#       env = yaml.safe_load(f)
+#   pkgs = next(
+#       item['pip'] for item in env['dependencies']
+#       if isinstance(item, dict) and 'pip' in item
+#   )
+#   open('requirements.txt','w').write('\n'.join(pkgs))
+#   print(f'{len(pkgs)} paquets extraits dans requirements.txt')
+#   "
+#   pip install -r requirements.txt
+#
+# ── 5. Désactiver ─────────────────────────────────────────────────────────────
+#
+#   deactivate
+#
+# ── 6. Supprimer ──────────────────────────────────────────────────────────────
+#
+#   rm -rf teledetection/          (Linux/macOS)
+#   rmdir /s /q teledetection      (Windows cmd)
+#
+# ── 7. Enregistrer comme kernel Jupyter ──────────────────────────────────────
+#
+#   pip install ipykernel
+#   python -m ipykernel install --user --name teledetection \
+#                               --display-name "Python (teledetection)"
+#
+# ── 8. Exporter l'environnement actuel ───────────────────────────────────────
+#
+#   pip freeze > requirements_export.txt
+#
+# ── NOTE venv ─────────────────────────────────────────────────────────────────
+#   Les sections conda du .yml (GDAL, eccodes, ISCE2, openjdk, jpy) ne sont
+#   PAS installées par pip ; il faut les compiler depuis les libs système.
+#   Utiliser conda reste fortement conseillé pour cet environnement.
+
+
+
+
+
+
+
+
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RÉSUMÉ DES CHOIX DE VERSIONS — CONFLITS RÉSOLUS
+#
+#  Python 3.11     : support maximal (PyTorch 2.1, TF 2.15, MintPy 1.5,
+#                    isce2, scikit-learn 1.3+). Python 3.12/3.14 non supporté
+#                    par ISCE2 conda-forge et TensorFlow <3.0.
+#
+#  numpy 1.26.x    : numpy 2.x casse MintPy, albumentations, pyrate-insar,
+#                    spectral, pyrocko et la majorité des outils SAR/InSAR.
+#
+#  GDAL 3.8.x      : compatible rasterio 1.3.x, fiona 1.9.x, ISCE2 conda-forge.
+#                    GDAL 3.9+ peut briser isce2 ; ne pas upgrader seul.
+#
+#  CUDA 12.1       : compatible PyTorch 2.1.0 ET TensorFlow 2.15.x.
+#                    CUDA 11.8 trop vieux pour TF 2.14+.
+#
+#  cdsapi / eccodes / cfgrib / rioxarray : conda-forge UNIQUEMENT
+#                    → supprimer leurs doublons pip évite les conflits de .so
+#
+#  urllib3 <3.0    : ecmwf-api-client et certains clients HTTP cassent avec >=3.0
+#
+#  intake <2.0     : intake-esm et intake-xarray incompatibles avec intake 2.x
+#
+#  GPU OPTIONNEL   : supprimer les lignes marquées [GPU] si pas de NVIDIA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+
+dependencies:
+  # ─────────────────────────────────────────────────
+  # Python core
+  # ─────────────────────────────────────────────────
+  - python=3.11
+  - pip>=23.3
+  - setuptools>=68.0
+  - wheel>=0.41
+  - cython>=3.0
+
+  # ─────────────────────────────────────────────────
+  # Science fondamentale
+  # numpy<2.0 obligatoire (MintPy, ISCE2, PyRAT, albumentations, spectral)
+  # ─────────────────────────────────────────────────
+  - numpy>=1.24,<2.0
+  - scipy>=1.11
+  - pandas>=2.0,<3.0
+  - statsmodels>=0.14
+  - sympy>=1.12
+  - mpmath>=1.3
+
+  # ─────────────────────────────────────────────────
+  # IO / Formats de données
+  # ─────────────────────────────────────────────────
+  - xarray>=2023.6
+  - dask>=2023.9
+  - dask-ml>=2023.3
+  - h5py>=3.9
+  - h5netcdf>=1.2
+  - netcdf4>=1.6
+  - zarr>=2.16,<3.0
+  - cfgrib>=0.9.10         # conda-forge — partage libeccodes.so avec eccodes
+  - eccodes>=2.32          # conda-forge — NE PAS aussi installer via pip
+  - pyhdf>=0.10            # HDF4 (MODIS, SMAP HDF4)
+  - pyarrow>=14.0
+  - fastparquet>=2023.8
+  - openpyxl>=3.1
+  - xlrd>=2.0
+  - tables>=3.9            # HDF5/PyTables
+  - cftime>=1.6            # calendriers climatiques non-standard
+  - pygrib>=2.1            # conda-forge — évite recompilation avec eccodes pip
+
+  # ─────────────────────────────────────────────────
+  # Géospatial
+  # GDAL 3.8.x ↔ rasterio 1.3.x ↔ fiona 1.9.x : triplet lié
+  # ─────────────────────────────────────────────────
+  - gdal>=3.8,<3.9
+  - rasterio>=1.3,<1.4
+  - fiona>=1.9,<2.0
+  - geopandas>=0.14
+  - shapely>=2.0
+  - pyproj>=3.6
+  - proj>=9.3
+  - cartopy>=0.22
+  - rtree>=1.2
+  - libspatialindex>=1.9
+  - geopy>=2.4
+  - tiledb>=0.24
+  - cf-units>=3.2
+  - rioxarray>=0.15         # conda-forge — NE PAS aussi installer via pip
+
+  # ─────────────────────────────────────────────────
+  # SAR / InSAR (conda-forge)
+  # isce2 2.6.x : requiert python 3.11, gdal<3.9, numpy<2.0
+  # openjdk + jpy : requis par SNAP / ESA SNAPPY (pont Java-Python)
+  # ─────────────────────────────────────────────────
+  - isce2>=2.6
+  - snaphu>=2.0.5           # phase unwrapping
+  - libconfig>=1.7
+  - openjdk>=11,<22         # JRE/JDK pour SNAP — Java 22+ non supporté par SNAP 10
+  - jpy>=0.15               # pont Java↔Python (compile contra JVM, conda-forge requis)
+
+  # ─────────────────────────────────────────────────
+  # Données climatiques (conda-forge exclusivement)
+  # cdsapi conda-forge évite conflit urllib3 vs version pip
+  # ─────────────────────────────────────────────────
+  - cdsapi>=0.7             # Copernicus CDS (ERA5, ERA5-Land, CERRA…)
+  - metpy>=1.6              # diagnostics météo
+  - pint>=0.23              # unités (dépendance metpy)
+  - pint-xarray>=0.3
+  - cf_xarray>=0.9
+  - xclim>=0.47
+  - xesmf>=0.8              # regridding ESMF (requiert esmpy compilé)
+  - esmpy>=8.6
+  - intake>=0.6,<2.0        # intake 2.x casse intake-esm et intake-xarray
+  - intake-xarray>=0.7
+  - intake-esm>=2023.11
+
+  # ─────────────────────────────────────────────────
+  # Visualisation
+  # ─────────────────────────────────────────────────
+  - matplotlib>=3.8
+  - seaborn>=0.13
+  - plotly>=5.17
+  - bokeh>=3.3
+  - holoviews>=1.18
+  - hvplot>=0.9
+  - panel>=1.3
+  - datashader>=0.16
+  - folium>=0.15
+  - ipyleaflet>=0.18
+  - geoviews>=1.11
+  - contextily>=1.4
+  - mapclassify>=2.6
+  - pyvista>=0.43
+  - vtk>=9.3
+  - imageio>=2.33
+  - imageio-ffmpeg>=0.4
+  - pillow>=10.1
+  - cmocean>=3.0
+  - colorcet>=3.0
+
+  # ─────────────────────────────────────────────────
+  # Jupyter
+  # ─────────────────────────────────────────────────
+  - jupyter>=1.0
+  - jupyterlab>=4.0
+  - jupyterlab-git>=0.50
+  - nbconvert>=7.10
+  - ipykernel>=6.27
+  - ipywidgets>=8.1
+  - ipympl>=0.9
+  - nbformat>=5.9
+
+  # ─────────────────────────────────────────────────
+  # Machine Learning
+  # ─────────────────────────────────────────────────
+  - scikit-learn>=1.3
+  - lightgbm>=4.1
+  - xgboost>=2.0
+  - catboost>=1.2
+  - imbalanced-learn>=0.11
+  - shap>=0.44
+  - mlflow>=2.9
+  - optuna>=3.4
+  - hyperopt>=0.2.7
+
+  # ─────────────────────────────────────────────────
+  # Deep Learning — PyTorch 2.1 + CUDA 12.1
+  # PyTorch 2.1 : Python 3.8-3.11, CUDA 11.8 ou 12.1
+  # TF 2.15 : Python 3.9-3.11, CUDA 12.1            ← [GPU]
+  # ─────────────────────────────────────────────────
+  - pytorch::pytorch=2.1.2
+  - pytorch::torchvision=0.16.2
+  - pytorch::torchaudio=2.1.2
+  - pytorch::pytorch-cuda=12.1   # [GPU]
+  - cudatoolkit=12.1             # [GPU]
+
+  # ─────────────────────────────────────────────────
+  # Traitement d'images
+  # ─────────────────────────────────────────────────
+  - opencv>=4.8
+  - scikit-image>=0.22
+  - itk>=5.3
+  - simpleitk>=2.3
+
+  # ─────────────────────────────────────────────────
+  # Optimisation / parallélisme
+  # ─────────────────────────────────────────────────
+  - numba>=0.58
+  - numexpr>=2.9
+  - joblib>=1.3
+  - multiprocess>=0.70
+  - tbb>=2021.10
+  - schwimmbad>=0.3
+
+  # ─────────────────────────────────────────────────
+  # Utilitaires
+  # urllib3 <3.0 : ecmwf-api-client et boto3 cassent avec >=3.0
+  # ─────────────────────────────────────────────────
+  - tqdm>=4.66
+  - rich>=13.6
+  - click>=8.1
+  - typer>=0.9
+  - loguru>=0.7
+  - pyyaml>=6.0
+  - toml>=0.10
+  - jsonschema>=4.20
+  - requests>=2.31
+  - httpx>=0.25
+  - aiohttp>=3.9
+  - urllib3>=1.26,<3.0
+  - certifi>=2023.11
+  - boto3>=1.33
+  - fsspec>=2023.12
+  - s3fs>=2023.12
+  - gcsfs>=2023.12
+  - pooch>=1.8
+  - lxml>=4.9
+  - beautifulsoup4>=4.12
+  - paramiko>=3.4
+  - gitpython>=3.1
+
+  # ─────────────────────────────────────────────────
+  # pip uniquement
+  # ─────────────────────────────────────────────────
+  - pip:
+
+    # ── Données climatiques & in-situ ────────────────────────────────────────
+    # NB: cdsapi / eccodes / pygrib déjà dans conda-forge — NE PAS réinstaller
+    - ismn==1.3.1                  # ISMN reader (testée Python 3.11, numpy 1.x)
+    - pytesmo==0.17.0              # TU Wien SM validation
+    - pynetcf==0.4.1               # dépendance pytesmo
+    - ascat==2.3.0                 # TU Wien ASCAT (Metop A/B/C)
+    - smap-io==1.1.0               # NASA SMAP L2/L3/L4
+    - herbie-data==2024.3.0        # ERA5 / GFS / HRRR download
+    - cfpython==1.11.2             # CF conventions helpers
+    - nc-time-axis==1.4.1          # axes temporels matplotlib
+    - climate-indices==1.0.13      # SPI, SPEI, PDSI
+    - xarray-datatree==0.0.14      # arbres datasets xarray
+    - verde==1.8.0                 # interpolation spatiale
+    - ecmwf-api-client==1.6.3      # ECMWF MARS API
+    - hdstats==0.2.7               # stats données HDF
+    - h5pyd==0.15.0                # HDF5 distant (HSDS)
+    - climpred==2.3.0              # vérification prévisions
+    - pydap==3.4.0                 # OPeNDAP (GPM, TRMM, GRACE)
+    - earthaccess==0.8.2           # NASA Earthdata (SMAP, MODIS, GPM, GRACE)
+    - planetary-computer==1.0.0
+
+    # ── InSAR / SAR ──────────────────────────────────────────────────────────
+    # mintpy 1.5.3 : numpy<2.0 (ok), scipy>=1.5 (ok), python<=3.11 (ok)
+    - mintpy==1.5.3
+    - pyaps3==0.3.1                # APS ERA5/GACOS (dépendance mintpy)
+    - pysolid==0.3.3               # Solid Earth tides (dépendance mintpy)
+    # pyrate-insar : numpy<2.0, gdal via conda (ok)
+    - pyrate-insar==0.7.0
+    - git+https://github.com/ManonDls/KFTS-InSAR.git
+    - git+https://github.com/jolivetr/mpits.git
+    - git+https://github.com/dbekaert/TRAIN.git
+    - git+https://github.com/aria-tools/ARIA-tools.git
+    - git+https://github.com/pyrocko/kite.git
+    - git+https://github.com/feigl/gipht.git
+    - git+https://github.com/insarlab/FRInGE.git
+
+    # ── Humidité des sols SAR ─────────────────────────────────────────────────
+    - git+https://github.com/kleok/INSAR4SM.git
+    - git+https://github.com/TUW-GEO/s1_rtc_sar_sm.git
+    - git+https://github.com/ECMWFCode4Earth/ml_drought.git
+    - git+https://github.com/ritviksahajpal/rangeland-carbon.git
+
+    # ── Découverte & téléchargement données satellites ────────────────────────
+    - sentinelsat==1.3.1
+    - asf-search==6.7.4
+    - hyp3-sdk==4.1.0
+    - git+https://github.com/SDFIdk/CDSETool.git
+    - git+https://github.com/armkhudinyan/copernicus_api.git
+    - eodag==2.11.0
+    - pystac==1.9.0
+    - pystac-client==0.7.6
+    - stackstac==0.5.0
+    - odc-stac==0.3.9
+    - eodms-api-client==2.2.0
+    - git+https://github.com/bakerunavco/Archive-Tools.git
+
+    # ── Imagerie & traitement SAR ─────────────────────────────────────────────
+    - sarsen==0.10.0
+    - xarray-sentinel==0.9.2
+    - pyrosar==0.24.0
+    - sarpy==1.3.40
+    - eoreader==0.21.2
+    - rio-cogeo==3.5.0
+    - git+https://github.com/odhondt/eo_tools.git
+    - git+https://github.com/mobigroup/gmtsar.git
+    - git+https://github.com/birgander2/PyRAT.git
+    - git+https://github.com/SAR-ARD/S1_NRB.git
+    - git+https://github.com/CNES/S1Tiling.git
+    - git+https://github.com/mdelgadoblasco/snap2stamps.git
+    - git+https://github.com/SnowEx/uavsar_pytools.git
+
+    # ── Imagerie optique & hyperspectrale ─────────────────────────────────────
+    - spectral==0.23.1             # SPy — requiert numpy<2.0 (ok)
+    - spectral-cube==0.6.3
+    - pysptools==0.15.0
+
+    # ── Détection de changements / destruction bâti ───────────────────────────
+    # torchgeo 0.5.x : pytorch>=2.0, torchvision>=0.15 (ok)
+    - torchgeo==0.5.2
+    # segmentation-models-pytorch : pytorch>=1.7, numpy<2.0 (ok)
+    - segmentation-models-pytorch==0.3.3
+    # albumentations 1.3.x : numpy<2.0 obligatoire (ok)
+    - albumentations==1.3.1
+    # timm 0.9.x : pytorch>=1.7, numpy>=1.22 (ok)
+    - timm==0.9.12
+    - einops==0.7.0
+    - git+https://github.com/wgcban/ChangeFormer.git
+    - git+https://github.com/likyoo/open-cd.git
+    - git+https://github.com/justchenhao/BIT_CD.git
+    - git+https://github.com/DIUx-xView/xView2_baseline.git
+
+    # ── Deep Learning complémentaire ──────────────────────────────────────────
+    # TF 2.15 : Python 3.9-3.11, CUDA 12.1 (ok), numpy<2.0 (ok)
+    - tensorflow==2.15.0
+    - keras==2.15.0
+    - tensorflow-datasets==4.9.6
+    - torch-summary==1.4.5
+    - torchmetrics==1.2.1
+    # pytorch-lightning 2.1.x : pytorch 2.1 ok
+    - pytorch-lightning==2.1.4
+    - onnx==1.15.0
+    - onnxruntime==1.16.3
+
+    # ── pyrocko ──────────────────────────────────────────────────────────────
+    # pyrocko 2023.x : numpy<2.0 (ok)
+    - pyrocko==2023.10.11
+
+    # ── Géostatistiques / interpolation ──────────────────────────────────────
+    - gstools==1.5.1
+    - pykrige==1.7.1
+    - pyinterp==2023.10.0
+
+    # ── Optimisation / profilage ─────────────────────────────────────────────
+    # ray 2.8.x : numpy>=1.20, pandas>=1.3 (ok)
+    - ray[default]==2.8.1
+    - memory-profiler==0.61.0
+    - line-profiler==4.1.1
+    - py-spy==0.3.14
+
+    # ── Visualisation complémentaire ─────────────────────────────────────────
+    - mpl-scatter-density==0.8
+    - proplot==0.9.7
+
+    # ── ESA SNAPPY — interface Python pour les opérateurs SNAP ────────────────
+    # Prérequis : SNAP installé séparément (https://step.esa.int/main/toolboxes/snap/)
+    #             openjdk + jpy déjà inclus dans la section conda ci-dessus
+    # Config post-install : $SNAP_HOME/bin/snappy-conf python
+    #                        (génère le module snappy dans site-packages)
+    # esa-snappy (SNAP 9+) remplace l'ancien module snappy fourni par SNAP
+    - esa-snappy==1.1.2        # interface Python → opérateurs SNAP (GPT, S1TBX…)
+    # Dépendances directes esa-snappy (jpy via conda, numpy/pillow déjà présents)
+    - jpype1==1.5.0             # alternative JVM bridge (certains modules SNAP l'utilisent)
+
+    # ── ArcPy — dépendances et alternative open-source ──────────────────────
+    # ⚠ IMPORTANT : arcpy (Esri) est PROPRIÉTAIRE et NON installable via pip/conda
+    #   Il est fourni uniquement avec ArcGIS Pro (licence commerciale requise).
+    #   Deux options pour l'utiliser avec cet environnement :
+    #     1. Cloner l'env conda ArcGIS Pro puis pip install les paquets manquants
+    #     2. Ajouter le chemin ArcGIS Pro au PYTHONPATH depuis cet env
+    #        ex: import sys; sys.path.insert(0, r"C:/Program Files/ArcGIS/Pro/bin/Python/envs/arcgispro-py3/Lib/site-packages")
+    #
+    # arcgis ci-dessous est l'API Python Esri (REST/GIS, ≠ arcpy mais complémentaire)
+    - arcgis==2.3.0             # Esri ArcGIS API for Python (cartes, analyse spatiale REST)
+    # Dépendances explicites de arcgis non encore installées
+    - ujson>=5.8                # JSON rapide (requis par arcgis)
+    - cachetools>=5.3           # cache LRU (requis par arcgis)
+    - geomet==0.3.1             # WMS/WCS/WFS helpers (requis par arcgis)
+    - keyring>=24.3             # gestion credentials (requis par arcgis)
+    - lerc==4.0.0               # codec LERC (rasters MRF Esri)
+    - pyshp==2.3.1              # lecture/écriture Shapefile (utilisé par arcpy)
+    - arcgis2geojson==3.0.2     # conversion FeatureSet Esri ↔ GeoJSON
+    - featuretools==1.28.0      # ingénierie de features tabulaires (workflows arcpy ML)
+
+    # ── Qualité code ─────────────────────────────────────────────────────────
+    - pytest>=7.4
+    - pytest-cov>=4.1
+    - black>=23.11
+    - flake8>=6.1
+    - isort>=5.13
+    - ruamel.yaml>=0.18
+    - natsort>=8.4
+    - more-itertools>=10.1
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DONNÉES & FORMATS COUVERTS
+#   ERA5 / ERA5-Land  → cdsapi (conda), herbie-data, cfgrib, eccodes, pygrib
+#   SMAP L2/L3/L4     → smap-io, earthaccess, pyhdf
+#   SMOS              → earthaccess
+#   ISMN in-situ      → ismn, pytesmo
+#   ASCAT Metop       → ascat, pytesmo
+#   MODIS LST/NDVI    → earthaccess, pyhdf, hdstats
+#   CMIP5/6           → intake-esm, xarray, cf_xarray
+#   GPM / TRMM        → earthaccess, pydap
+#   GRACE / GRACE-FO  → earthaccess, pydap
+#   NetCDF (.nc)      → netcdf4, xarray, h5netcdf, rioxarray, cf_xarray, cftime
+#   HDF4              → pyhdf
+#   HDF5              → h5py, h5netcdf, h5pyd, tables
+#   GRIB2             → cfgrib, pygrib, eccodes  (tous via conda-forge)
+#   GeoTIFF / COG     → gdal, rasterio, rio-cogeo
+#   Sentinel-1 SLC    → xarray-sentinel, sarsen, pyrosar, isce2, snap2stamps
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+# INSTALLATION
+#   conda env create -f environment_teledetection.yml
+#   conda activate teledetection
+#
+# Sans GPU NVIDIA → supprimer les 2 lignes marquées [GPU]
+# ═══════════════════════════════════════════════════════════════════════════════
